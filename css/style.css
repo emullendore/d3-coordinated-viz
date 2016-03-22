@@ -1,0 +1,17 @@
+
+
+.selectCountries {
+  fill: orange;
+  stroke: white;
+  stroke-width: 0.5px;
+}
+
+.gratLines {
+  fill: none;
+  stroke: lightgrey;
+  stroke-width: 1px;
+}
+
+.gratBackground{
+  fill: silver;
+}

@@ -1,0 +1,193 @@
+id,Country,ne_50m_admin_0_countries_lakes_adm0_a3,var1_usersper100,var2_secureaccess,var3_politicalrights,var4_civilib,var5_politcalfiltr
+1,Afghanistan,AFG,6.39,1,6,6,0
+2,Albania,ALB,60.1,24,3,3,no data
+3,Algeria,DZA,18.09,no data,6,5,0
+4,Andorra,AND,95.9,no data,1,1,no data
+5,Angola,AGO,21.26,5,6,6,no data
+6,Antigua & Barbuda,ATG,64,no data,2,2,no data
+7,Argentina,ARG,64.7,53,2,2,no data
+8,Armenia,ARM,46.3,41,5,4,3
+9,Australia,AUS,84.56,1349,1,1,0
+10,Austria,AUT,81,1268,1,1,no data
+11,Azerbaijan,AZE,61,14,7,6,2
+12,Bahrain,BHR,90.99998,177,7,6,4
+13,Bangladesh,BGD,9.6,177,4,4,0
+14,Barbados,BRB,76.67,no data,1,1,no data
+15,Belarus,BLR,59.02,45,7,6,2
+16,Belgium,BEL,85,no data,1,1,no data
+17,Belize,BLZ,38.7,210,1,2,no data
+18,Benin,BEN,5.3,2,2,2,no data
+19,Bhutan,BTN,34.37,no data,3,4,no data
+20,Bolivia,BOL,39.02,13,3,3,no data
+21,Bosnia and Herzegovina,BIH,60.8,36,4,3,no data
+22,Botswana,BWA,18.5,11,3,2,no data
+23,Brazil,BRA,57.6,69,2,2,no data
+24,Brunei,BRN,68.77,151,6,5,no data
+25,Bulgaria,BGR,55.49,no data,2,2,no data
+26,Burkina Faso,BFA,9.4,no data,4,3,no data
+27,Burundi,BDI,1.38,no data,7,6,no data
+28,Cambodia,KHM,9,no data,6,5,no data
+29,Cameroon,CMR,11,2,6,6,no data
+30,Canada,CAN,87.12,1201,1,1,0
+31,Cape Verde,CPV,no data,no data,1,1,no data
+32,Central African Republic,CAF,4.03,0,7,7,no data
+33,Chad,TCD,2.5,0,7,6,no data
+34,Chile,CHL,72.35,128,1,1,no data
+35,China,CHN,49.3,7,7,6,4
+36,Colombia,COL,52.57,47,3,4,0
+37,Comoros,COM,6.98,no data,3,4,no data
+38,Republic of Congo,COG,3,2,6,5,no data
+39,Democratic Republic of the Congo,COD,7.11,0,6,6,no data
+40,Costa Rica,CRI,49.41,99,1,1,no data
+41,Ivory Coast,CIV,14.6,3,4,4,no data
+42,Croatia,HRV,68.57,220,1,2,0
+43,Cuba,CUB,30,0,7,6,no data
+44,Cyprus,CYP,69.33,607,1,1,no data
+45,Czech Republic,CZE,79.71,692,1,1,no data
+46,Denmark,DNK,95.99,2081,1,1,0
+47,Djibouti,DJI,10.71,10,6,5,no data
+48,Dominica,DMA,62.86,439,1,1,no data
+49,Dominican Republic,DOM,49.58,28,3,3,no data
+50,East Timor,TLS,no data,no data,3,3,no data
+51,Ecuador,ECU,43,34,3,3,no data
+52,Egypt,EGY,31.7,5,6,5,0
+53,El Salvador,SLV,29.7,22,2,3,no data
+54,Equatorial Guinea,GNQ,18.86,4,7,7,no data
+55,Eritrea,ERI,0.99,no data,7,7,no data
+56,Estonia,EST,84.24,927,1,1,no data
+57,Ethiopia,ETH,2.9,0,7,6,4
+58,Fiji,FJI,41.8,42,3,3,no data
+59,Finland,FIN,92.38,1791,1,1,0
+60,France,FRA,83.75,683,1,1,0
+61,Gabon,GAB,9.81,11,6,5,no data
+62,Gambia,GMB,15.56,6,7,6,no data
+63,Georgia,GEO,48.9,37,3,3,2
+64,Germany,DEU,86.19,1420,1,1,0
+65,Ghana,GHA,18.9,4,1,2,no data
+66,Greece,GRC,63.21,147,2,2,no data
+67,Grenada,GRD,37.38,38,1,2,no data
+68,Guatemala,GTM,23.4,18,4,4,0
+69,Guinea,GIN,1.72,0,5,5,no data
+70,Guinea Bissau,GNB,3.32,1,5,5,no data
+71,Guyana,GUY,37.35,10,2,3,no data
+72,Haiti,HTI,11.4,2,5,5,no data
+73,Honduras,HND,19.08,11,4,4,no data
+74,Hungary,HUN,76.13,301,2,2,0
+75,Iceland,ISL,98.16,3214,1,1,no data
+76,India,IND,18,6,2,3,2
+77,Indonesia,IDN,17.14,6,2,4,2
+78,Iran,IRN,39.35,2,6,6,4
+79,Iraq,IRQ,11.3,1,5,6,0
+80,Ireland,IRL,79.69,775,1,1,no data
+81,Israel,ISR,71.45,254,1,2,0
+82,Italy,ITA,61.96,249,1,1,0
+83,Jamaica,JAM,40.5,57,2,3,no data
+84,Japan,JPN,90.58,912,1,1,no data
+85,Jordan,JOR,44,30,6,5,2
+86,Kazakhstan,KAZ,54.89,14,6,5,2
+87,Kenya,KEN,43.4,8,4,4,no data
+88,Kiribati,KIR,12.25,9,1,1,no data
+89,Kosovo,KOS,no data,no data,3,4,no data
+90,Kuwait,KWT,78.7,199,5,5,2
+91,Kyrgyzstan,KGZ,28.3,9,5,5,2
+92,Laos,LAO,14.26,2,7,6,0
+93,Latvia,LVA,75.83,361,2,2,0
+94,Lebanon,LBN,74.7,55,5,4,0
+95,Lesotho,LSO,11,1,3,3,no data
+96,Liberia,LBR,5.41,3,3,4,no data
+97,Libya,LBY,17.76,3,6,6,2
+98,Liechtenstein,LIE,95.21,9762,1,1,no data
+99,Lithuania,LTU,72.13,207,1,1,no data
+100,Luxembourg,LUX,94.67,2645,1,1,no data
+101,Macedonia,MKD,68.06,77,4,3,no data
+102,Madagascar,MDG,3.7,1,3,4,no data
+103,Malawi,MWI,5.83,1,3,3,no data
+104,Malaysia,MYS,67.5,89,4,4,0
+105,Maldives,MDV,49.28,87,4,5,no data
+106,Mali,MLI,7,1,5,4,no data
+107,Malta,MLT,73.17,1692,1,1,no data
+108,Marshall Islands,MHL,16.8,19,1,1,no data
+109,Mauritania,MRT,10.7,3,6,5,2
+110,Mauritius,MUS,41.44,155,1,2,no data
+111,Mexico,MEX,44.39,34,3,3,0
+112,Moldova,MDA,46.6,48,3,3,2
+113,Monaco,MCO,92.4,3216,2,1,no data
+114,Mongolia,MNG,27,29,1,2,no data
+115,Montenegro,MNE,61,56,3,3,no data
+116,Morocco,MAR,56.8,5,5,4,0
+117,Mozambique,MOZ,5.94,2,4,4,no data
+118,Myanmar,MMR,2.1,0,6,5,2
+119,Namibia,NAM,14.84,22,2,2,no data
+120,Nauru,NRU,no data,no data,2,2,no data
+121,Nepal,NPL,15.44,3,3,4,0
+122,Netherlands,NLD,93.17,2635,1,1,no data
+123,New Zealand,NZL,85.5,1211,1,1,no data
+124,Nicaragua,NIC,17.6,11,4,3,no data
+125,Niger,NER,1.95,0,3,4,no data
+126,Nigeria,NGA,42.68,2,4,5,0
+127,North Korea,PRK,0,0,7,7,no data
+128,Norway,NOR,96.3,1942,1,1,0
+129,Oman,OMN,70.22,79,6,5,2
+130,Pakistan,PAK,13.8,2,4,5,2
+131,Palau,PLW,no data,142,1,1,no data
+132,Panama,PAN,44.92,117,2,2,no data
+133,Papua New Guinea,PNG,9.38,11,4,3,no data
+134,Paraguay,PRY,43,24,3,3,no data
+135,Peru,PER,40.2,28,2,3,0
+136,Philippines,PHL,39.69,11,3,3,0
+137,Poland,POL,66.6,430,1,1,no data
+138,Portugal,PRT,64.59,263,1,1,no data
+139,Qatar,QAT,91.49,232,6,5,2
+140,Romania,ROU,54.08,125,2,2,0
+141,Russia,RUS,70.52,84,6,6,2
+142,Rwanda,RWA,10.6,4,6,6,no data
+143,Saint Kitts and Nevis,KNA,65.4,1274,2,1,no data
+144,Saint Lucia,LCA,51,93,1,1,no data
+145,Saint Vincent and the Grenadines,VCT,56.48,192,1,1,no data
+146,Samoa,WSM,21.2,31,2,2,no data
+147,San Marino,SMR,no data,1867,1,1,no data
+148,Sao Tome and Principe,STP,24.41,11,2,2,no data
+149,Saudi Arabia,SAU,63.7,46,7,7,3
+150,Senegal,SEN,17.7,4,2,2,no data
+151,Serbia,SRB,53.5,44,2,2,no data
+152,Seychelles,SYC,54.26,470,3,3,no data
+153,Sierra Leone,SLE,2.1,1,3,3,no data
+154,Singapore,SGP,82,822,4,4,0
+155,Slovakia,SVK,79.98,321,1,1,no data
+156,Slovenia,SVN,71.59,648,1,1,no data
+157,Solomon Islands,SLB,9,3,3,3,no data
+158,Somalia,SOM,1.63,0,7,7,no data
+159,South Africa,ZAF,49,116,2,2,no data
+160,South Korea,KOR,84.33,2178,2,2,0
+161,South Sudan,SDS,15.9,0,7,6,no data
+162,Spain,ESP,76.19,317,1,1,no data
+163,Sri Lanka,LKA,25.8,11,4,4,0
+164,Sudan,SDN,24.64,0,7,7,2
+165,Suriname,SUR,40.08,56,2,3,no data
+166,Swaziland,SWZ,27.1,10,7,5,no data
+167,Sweden,SWE,92.52,1602,1,1,0
+168,Switzerland,CHE,87,2820,1,1,no data
+169,Syria,SYR,28.09,0,7,7,4
+170,Taiwan,TWN,no data,no data,1,2,no data
+171,Tajikistan,TJK,17.49,1,7,6,2
+172,United Republic of Tanzania,TZA,4.86,2,3,4,no data
+173,Thailand,THA,34.89,32,6,5,2
+174,Togo,TGO,5.7,4,4,4,no data
+175,Tonga,TON,40,28,2,2,no data
+176,Trinidad and Tobago,TTO,65.1,111,2,2,no data
+177,Tunisia,TUN,46.16,18,1,3,0
+178,Turkey,TUR,51.04,57,3,4,2
+179,Turkmenistan,TKM,12.2,0,7,7,4
+180,Uganda,UGA,17.71,2,6,5,0
+181,Ukraine,UKR,43.4,45,3,3,0
+182,United Arab Emirates,ARE,90.4,294,6,6,3
+183,United Kingdom,GBR,91.61,1291,1,1,0
+184,United States of America,USA,87.36,1548,1,1,0
+185,Uruguay,URY,61.46,95,1,1,no data
+186,Uzbekistan,UZB,43.55,2,7,7,4
+187,Vanuatu,VUT,18.8,27,2,2,no data
+188,Venezuela,VEN,57,12,5,5,0
+189,Vietnam,VNM,48.31,12,7,5,4
+190,Yemen,YEM,22.55,1,7,6,3
+191,Zambia,ZMB,17.34,3,3,4,no data
+192,Zimbabwe,ZWE,19.89,5,5,5,0
