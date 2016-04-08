@@ -1,10 +1,8 @@
-//MODULE 9
-
 (function(){
 //array to hold header names of csvData
 keyArray=["var1_usersper100", "var2_avgconnection","var3_politicalrights", "var4_civilib", "var5_politcalfiltr"]
 var expressed = keyArray[0];
-console.log(expressed);
+console.log(expressed);//delete all console.logs before submission
 
 //key to assign colors to each variable
 var objectColors={
@@ -24,6 +22,15 @@ var chartTitles={
       var5_politcalfiltr:['OpenNet Initiative: Political Censorship (0-4)']
 };
 
+//chart dimensions
+var chartWidth = 720,
+    chartHeight = 697.5,
+    leftPadding=29,//more room for scale
+    rightPadding=20,
+    topBottomPadding=20,
+    chartInnerWidth=chartWidth - leftPadding - rightPadding,
+    chartInnerHeight=chartHeight-(topBottomPadding*2),//make chartInnerHeight contined within padding
+    translate="translate(" + leftPadding + "," + topBottomPadding + ")";
 //an emptyy array I might use
 currentColors=[];
 
@@ -87,12 +94,68 @@ function setMap() {
     //for creating choropleth
     setEnumerationUnits(worldCountries, map, path, colorScale);
     //for implementing chart with data and color`
-    setChart(csvData, colorScale);
+    setChart(csvData, worldCountries, colorScale);
+    createDropdown(csvData, keyArray);
   };
 
 
 
 };//end setMap
+
+function createDropdown(csvData){
+  var dropdown=d3.select("body")
+      .append("select")
+      .attr("class","dropdown")
+      .on("change", function(){
+        changeAttribute(this.value, csvData)
+      });
+
+  var titleOption = dropdown.append("option")
+      .attr("class", "titleOption")
+      .attr("disabled", "true")
+      .text("Select Variable");
+
+  var attrOptions=dropdown.selectAll("attrOptions")
+      .data(keyArray)
+      .enter()
+      .append("option")
+      .attr("value", function(d){return d})
+      .text(function(d){return d});
+};
+
+// function changeAttribute(attribute, csvData){
+//   //change expressed attribute
+//   expressed=attribute;
+//   //recreate color scale
+//   var colorScale=makeColorScale(csvData);
+//   //recolor countries
+//   var selectCountries=d3.selectAll(".selectCountries")
+//       .style("fill", function(d){
+//         return choropleth(d.properties, colorScale)
+//       });
+//
+//   var bars=d3.selectAll(".bars")
+//       //re-sort bars
+//       .sort(function(a,b){
+//         //list largest values first for easier of reading
+//         return b[expressed] - a[expressed];
+//       })
+//       .attr("x", function(d,i){
+//         return i*(chartInnerWidth/csvData.length) + leftPadding;
+//       })
+//       .attr("height", function(d,i){
+//         return chartInnerHeight-yScale(parseFloat(d[expressed]));
+//       })
+//       .attr("y", function(d,i){
+//         return yScale(parseFloat(d[expressed]))+topBottomPadding;
+//
+//       })
+//       //color by colorScale
+//       .style("fill", function(d){
+//         return choropleth(d, colorScale);
+//       });
+//
+// };
 
 function setGraticule(map, path){
     //apply graticule with lines 5 units apart in both dimensions--lat,lon
@@ -141,6 +204,7 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
         })
         .attr("d",path)//assign d with attribute path
         .style("fill", function(d){
+
           return choropleth(d.properties, colorScale);
         });
 };
@@ -161,17 +225,7 @@ function choropleth(props, colorScale){
 
 };
 
-function setChart(csvData, colorScale){
-  //chart dimensions
-  var chartWidth = 720,
-      chartHeight = 697.5,
-      leftPadding=29,//more room for scale
-      rightPadding=20,
-      topBottomPadding=20,
-      chartInnerWidth=chartWidth - leftPadding - rightPadding,
-      chartInnerHeight=chartHeight-(topBottomPadding*2),//make chartInnerHeight contined within padding
-      translate="translate(" + leftPadding + "," + topBottomPadding + ")";
-
+function setChart(csvData, worldCountries, colorScale){
 //add chart element
   var chart = d3.select("body")
       .append("svg")
@@ -191,14 +245,15 @@ function setChart(csvData, colorScale){
               .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
               //output this between 0 and chartInnerHeight
               .range([0, chartInnerHeight]);
-//bars element added
+//bars el=ement added
   var bars=chart.selectAll(".bars")
       .data(csvData)
       .enter()
       .append("rect")
       .sort(function(a,b){
+        //console.log(csvData);
         //list largest values first for easier of reading
-        return (parseFloat(b[expressed]-a[expressed]))
+        return b[expressed]-a[expressed];
       })
       .attr("class", function(d){
         //give clas name to bars--was switching out values to see how each variable plotted out
@@ -247,6 +302,118 @@ function setChart(csvData, colorScale){
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
+
+//DO SOMETHING W
+//Goal: go through data to identify data !=NaN and return that data
+//steps
+//1. create new function to output the desired data 2. access all of the data,
+//2. access the properties of the data
+//3. write if statement to get desired data
+//4. return data
+//5. incoroporting into creation of bar chart
+  function newData(worldCountries){
+    //console.log(worldCountries);
+    for (var i=0; i<worldCountries.length; i++){
+      //console.log(worldCountries[i][expressed]);
+      var val=parseFloat(worldCountries[i][expressed]);
+    //  console.log(val);
+    };
+  };
+  var data2 = newData(csvData);
+
+//updateChart(bars, csvData.length, colorScale);
+
 };
+
+function changeAttribute(attribute, csvData){
+  expressed=attribute;
+
+  var yScale = d3.scale.linear()
+              //change scale values dynamically with max value of each variable
+              .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
+              //output this between 0 and chartInnerHeight
+              .range([0, chartInnerHeight]);
+
+
+
+  var colorScale=makeColorScale(csvData);
+
+  var selectCountries=d3.selectAll(".selectCountries")
+      .style("fill", function(d){
+        return choropleth(d.properties, colorScale)
+      });
+
+  var bars=d3.selectAll(".bars")
+      .sort(function(a,b){
+        //list largest values first for easier of reading
+      return b[expressed]-a[expressed];
+    })
+  //determine position on x axis by number of elements, incl leftPadding
+      .attr("x", function(d,i){
+        return i*(chartInnerWidth/csvData.length) + leftPadding;
+    })
+    //height by yscale of each value, within chartInnerHeight
+      .attr("height", function(d){
+        return chartInnerHeight-yScale(parseFloat(d[expressed]));
+    })
+      .attr("y", function(d){
+        return yScale(parseFloat(d[expressed]))+topBottomPadding;
+
+    })
+      //color by colorScale
+      .style("fill", function(d){
+        return choropleth(d, colorScale);
+    });
+
+    var chartTitle=d3.select(".chartTitle")
+        .text((chartTitles[expressed]))
+
+  //  updateChart(bars, csvData.length, colorScale);
+};
+
+function updateChart(bars, n, colorScale, csvData){
+  //  var colorScale=makeColorScale(csvData);
+
+
+  bars.attr("x", function(d,i){
+        return i*(chartInnerWidth/n) + leftPadding;
+    })
+    //height by yscale of each value, within chartInnerHeight
+    .attr("height", function(d,i){
+      var yScale = d3.scale.linear()
+                  //change scale values dynamically with max value of each variable
+                  .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
+                  //output this between 0 and chartInnerHeight
+                  .range([0, chartInnerHeight]);
+      return chartInnerHeight-yScale(parseFloat(d[expressed]));
+    })
+    //make bars 'grow' from bottom
+    .attr("y", function(d,i){
+      var yScale = d3.scale.linear()
+                  //change scale values dynamically with max value of each variable
+                  .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
+                  //output this between 0 and chartInnerHeight
+                  .range([0, chartInnerHeight]);
+      return yScale(parseFloat(d[expressed]))+topBottomPadding;
+
+    })
+    //color by colorScale
+    .style("fill", function(d){
+      return choropleth(d, colorScale);
+    });
+
+  var chartTitle=d3.select(".chartTitle")
+          .text(chartTitles[expressed]);
+
+  var yScale = d3.scale.linear()
+              //change scale values dynamically with max value of each variable
+              .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.01, 0])
+              //output this between 0 and chartInnerHeight
+              .range([0, chartInnerHeight]);
+
+
+};
+
+
 
 })();
