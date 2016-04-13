@@ -1,27 +1,39 @@
+//a couple quirks that I couldn't quite work out. After hours of working I made little progress on:
+//1. determining bar widths by number of values!=NaN. I could print the array of valid values, but
+//could not incorporate it into the other functions.
+//2. variable 5, political censorship, refuses to sort for whatever reason.-- probably take out variable 5 after grading
 (function(){
 //array to hold header names of csvData
-keyArray=["var1_usersper100", "var2_avgconnection","var3_politicalrights", "var4_civilib", "var5_politcalfiltr"]
+keyArray=["Users_per_100", "Average_Connection_Speed","Political_Rights", "Civil_Liberties", "Political_Filtering"]
 var expressed = keyArray[0];
-console.log(expressed);//delete all console.logs before submission
+
+
 
 //key to assign colors to each variable
 var objectColors={
-      var1_usersper100:[  '#ffffcc','#c2e699','#78c679','#31a354','#006837'],
-      var2_avgconnection:['#c2e699','#78c679','#31a354','#006837'],
-      var3_politicalrights:['#005a32','#238443','#41ab5d','#78c679','#addd8e','#d9f0a3','#ffffcc' ],
-      var4_civilib:['#005a32','#238443','#41ab5d','#78c679','#addd8e','#d9f0a3','#ffffcc' ],
-      var5_politcalfiltr:[ '#ffffcc','#c2e699','#78c679','#31a354','#006837']
+      Users_per_100:[  '#ffffcc','#c2e699','#78c679','#31a354','#006837'],
+      Average_Connection_Speed:['#c2e699','#78c679','#31a354','#006837'],
+      Political_Rights:['#005a32','#238443','#41ab5d','#78c679','#addd8e','#d9f0a3','#ffffcc' ],
+      Civil_Liberties:['#005a32','#238443','#41ab5d','#78c679','#addd8e','#d9f0a3','#ffffcc' ],
+      Political_Filtering:['#006837','#31a354','#78c679','#c2e699','#ffffcc']
 };
 
 //key to assign chart titles to each variable
 var chartTitles={
-      var1_usersper100:['Internet Users per 100 People'],
-      var2_avgconnection:['Average Connection Speed (kbps)'],
-      var3_politicalrights:['Freedom House: Political Rights (1-7)'],
-      var4_civilib:['Freedom House: Civil Liberties (1-7)'],
-      var5_politcalfiltr:['OpenNet Initiative: Political Censorship (0-4)']
+      Users_per_100:['Internet Users per 100 People'],
+      Average_Connection_Speed:['Average Connection Speed (kbps)'],
+      Political_Rights:['Freedom House: Political Rights (1-7)'],
+      Civil_Liberties:['Freedom House: Civil Liberties (1-7)'],
+      Political_Filtering:['ONI: Political Censorship (0-4)']
 };
 
+var labelTitles={
+      Users_per_100:['Internet Users per 100 People'],
+      Average_Connection_Speed:['Average Connection Speed (kbps)'],
+      Political_Rights:['Political Rights'],
+      Civil_Liberties:['Civil Liberties'],
+      Political_Filtering:['Political Censorship']
+};
 //chart dimensions
 var chartWidth = 720,
     chartHeight = 697.5,
@@ -31,21 +43,23 @@ var chartWidth = 720,
     chartInnerWidth=chartWidth - leftPadding - rightPadding,
     chartInnerHeight=chartHeight-(topBottomPadding*2),//make chartInnerHeight contined within padding
     translate="translate(" + leftPadding + "," + topBottomPadding + ")";
-//an emptyy array I might use
-currentColors=[];
+
+
 
 window.onload = setMap();
 
 function setMap() {
   //set width, height
-  var width= 648 //window.innerWidth * 0.9 -- this never looked how I wanted
-      height=342;
+  var width= 648, //window.innerWidth * 0.9 -- this never looked how I wanted
+      height=342,
+      centered;
   //append map svg container to body
   var map=d3.select("body")
         .append("svg")
         .attr("class","map")
         .attr("width", width)
         .attr("height",height);
+
 
   //create natural earth projection of world
   var projection=d3.geo.naturalEarth()
@@ -83,7 +97,7 @@ function setMap() {
           for (var key in keyArray){//for each variable in keyArray
             var attribute=keyArray[key];//each variable assigned to the country
             var value =parseFloat(csvCountry[attribute]);//position in array -- 0,1,2,3, or 4
-          //  console.log(value);
+
             (jsonCountries[j].properties[attribute])=value;//find values both present in csv and geojson
           };
         };
@@ -98,10 +112,10 @@ function setMap() {
     createDropdown(csvData, keyArray);
   };
 
+//end setMap
+};
 
-
-};//end setMap
-
+//add dropdown
 function createDropdown(csvData){
   var dropdown=d3.select("body")
       .append("select")
@@ -109,55 +123,122 @@ function createDropdown(csvData){
       .on("change", function(){
         changeAttribute(this.value, csvData)
       });
-
+//give title to dropdown
   var titleOption = dropdown.append("option")
       .attr("class", "titleOption")
       .attr("disabled", "true")
       .text("Select Variable");
-
+//drop down options taken from array chartTitles
   var attrOptions=dropdown.selectAll("attrOptions")
       .data(keyArray)
       .enter()
       .append("option")
       .attr("value", function(d){return d})
-      .text(function(d){return d});
+      .text(function(d, i){return chartTitles[d]});
 };
 
-// function changeAttribute(attribute, csvData){
-//   //change expressed attribute
-//   expressed=attribute;
-//   //recreate color scale
-//   var colorScale=makeColorScale(csvData);
-//   //recolor countries
-//   var selectCountries=d3.selectAll(".selectCountries")
-//       .style("fill", function(d){
-//         return choropleth(d.properties, colorScale)
-//       });
-//
-//   var bars=d3.selectAll(".bars")
-//       //re-sort bars
-//       .sort(function(a,b){
-//         //list largest values first for easier of reading
-//         return b[expressed] - a[expressed];
-//       })
-//       .attr("x", function(d,i){
-//         return i*(chartInnerWidth/csvData.length) + leftPadding;
-//       })
-//       .attr("height", function(d,i){
-//         return chartInnerHeight-yScale(parseFloat(d[expressed]));
-//       })
-//       .attr("y", function(d,i){
-//         return yScale(parseFloat(d[expressed]))+topBottomPadding;
-//
-//       })
-//       //color by colorScale
-//       .style("fill", function(d){
-//         return choropleth(d, colorScale);
-//       });
-//
-// };
+//implementing highlight funciton for mouseover
+function highlight(props){
+  var selected=d3.selectAll("."+props.adm0_a3)
+      .style({
+          "fill-opacity":"1",
+          "stroke":"white",
+          "stroke-width":"2"
+      })
+     setLabel(props);
+};
 
-function setGraticule(map, path){
+//implementing dehighlight function for mouseout
+function dehighlight(props){
+
+   var selected=d3.selectAll("."+props.adm0_a3)
+       .style({
+         "stroke":function(){
+              return getStyle(this, "stroke")
+         },
+         "stroke-width":function(){
+              return getStyle(this, "stroke-width")
+         },
+         "fill-opacity":function(){
+              return getStyle(this, "fill-opacity")
+         }
+      });
+  //used to determine previous style so when you mouseoff and dehighlight, it returns to that previous style
+  function getStyle(element, styleName){
+
+    var styleText=d3.select(element)
+        .select("desc")
+        .text();
+
+    var styleObject=JSON.parse(styleText);
+    return styleObject[styleName];
+  };
+  //remove label when mouseoff from item
+  d3.select(".infoLabel")
+        .remove();
+};
+
+//implement label, provide content based on certain properties
+function setLabel(props){
+
+  if (isNaN(props[expressed])){//if there is no value, state No Data
+    var labelAttribute="<h1>"+labelTitles[expressed]+"<b>"+":   "+'No Data'+"</b></h><h2>";
+    var infoLabel=d3.select("body")
+          .append("div")
+          .attr({
+              "class": "infoLabel",
+              "id":props.adm0_a3+"_label"
+          })
+          .html(labelAttribute);
+
+      var countryName=infoLabel.append("body")
+          .attr("class","labelname")
+          .html(props.name);
+
+  }else{//else state the value
+  var labelAttribute="<h1>"+labelTitles[expressed]+"<b>"+":   "+props[expressed]+"</b></h><h2>";
+
+  var infoLabel=d3.select("body")
+        .append("div")
+        .attr({
+            "class": "infoLabel",
+            "id":"."+props.adm0_a3
+        })
+        .html(labelAttribute);
+
+    var countryName=infoLabel.append("body")
+        .attr("class","labelname")
+        .html(props.name);
+
+    }
+};
+
+//to move label
+function moveLabel(){
+//get label dimensions to determining positioning when mousing over
+var labelWidth=d3.select(".infoLabel")
+    .node()
+    .getBoundingClientRect()
+    .width;
+//give to possible positions depending on position of mouse, distance to border
+var x1=d3.event.clientX,
+    y1=d3.event.clientY-75,
+    x2=d3.event.clientX-labelWidth,
+    y2=d3.event.clientY+25;
+
+//horizontal label coordinate, testing for overflow
+var x = d3.event.clientX > window.innerWidth - labelWidth - 10 ? x2 : x1;
+//vertical label coordinate, testing for overflow
+var y = d3.event.clientY < 75 ? y2 : y1;
+//put these specifications into action, indicate in .style of infolabel
+  d3.select(".infoLabel")
+      .style({
+        "left":x+"px",
+        "top": y + "px"
+      });
+};
+
+function setGraticule(map,path){
     //apply graticule with lines 5 units apart in both dimensions--lat,lon
     var graticule=d3.geo.graticule()
         .step([5,5]);
@@ -178,6 +259,7 @@ function setGraticule(map, path){
 };
 //create color scale with data
  function makeColorScale(data){
+
      var colorScale=d3.scale.quantile()//use quantile for scale generator
           .range(objectColors[expressed]);//incorporate objectColors array to change depending on variable
 
@@ -199,33 +281,44 @@ function setEnumerationUnits(worldCountries, map, path, colorScale){
         .data(worldCountries)
         .enter()
         .append("path")
+        .attr("d",path)//assign d with attribute path
         .attr("class", function(d){
           return "selectCountries " + d.properties.adm0_a3;
         })
-        .attr("d",path)//assign d with attribute path
+        //color based on colorScale
         .style("fill", function(d){
-
-          return choropleth(d.properties, colorScale);
-        });
+            return choropleth(d.properties, colorScale);
+        })
+        //on mouseover implement highight
+        .on("mouseover",function(d){
+            highlight(d.properties);
+        })
+        //on mouseout, implement dehighlight
+        .on("mouseout", function(d){
+            dehighlight(d.properties);
+        })
+        //on mousemove implement move label
+        .on("mousemove", moveLabel);
+    //used to return previous style
+    var desc=selectCountries.append("desc")
+        .text('{"stroke":"#000", "stroke-width":"0.5px", "fill-opacity":".4"}');
 };
+
 //creation of choropleth map
 function choropleth(props, colorScale){
   var value = parseFloat(props[expressed]);
-  //set condition to color only those !=NaN and 0
-  if (value && value !=NaN && value!=0) {
-    return colorScale(value);
-    } else if(value==0){
-  //if value 0, still color on map
-    return "#ffffcc";
-    //return "white"; --experimenting w/ color
-    } else {
-  //if NaN, return grey color
-    return "grey";
-  }
 
-};
+  if(isNaN(value)){
+        return "grey";//no value
+    } else if (value==0){
+        return "lightgrey";//for case of Political_Filtering with a score of 0
+    } else{
+        return colorScale(value);
+    }
+  };
 
 function setChart(csvData, worldCountries, colorScale){
+
 //add chart element
   var chart = d3.select("body")
       .append("svg")
@@ -245,19 +338,19 @@ function setChart(csvData, worldCountries, colorScale){
               .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
               //output this between 0 and chartInnerHeight
               .range([0, chartInnerHeight]);
-//bars el=ement added
+
+//bars element added
   var bars=chart.selectAll(".bars")
       .data(csvData)
       .enter()
       .append("rect")
       .sort(function(a,b){
-        //console.log(csvData);
         //list largest values first for easier of reading
         return b[expressed]-a[expressed];
       })
       .attr("class", function(d){
         //give clas name to bars--was switching out values to see how each variable plotted out
-        return "bars " + d.var2_secureaccess;
+        return "bars " + d.adm0_a3;
       })
       //width depending on number of elements, in my case 192-1
       .attr("width", chartInnerWidth/csvData.length - 1)
@@ -276,12 +369,21 @@ function setChart(csvData, worldCountries, colorScale){
       })
       //color by colorScale
       .style("fill", function(d){
-        return choropleth(d, colorScale);
+        return choropleth(d, colorScale)
       })
-    //add chart title
+
+      .on("mouseover", highlight)//highlight selected  bars
+      .on("mouseout", dehighlight)//de highlight selected bars with mouseout
+      .on("mousemove", moveLabel);//follow label with cursor
+
+    //for returing style after an interaction
+    var desc=bars.append("desc")
+        .text('{"stroke":"black", "stroke-width":"0px", "fill-opacity":"1"}');    //add chart title
+
+    //add chart title, change according to variable
     var chartTitle=chart.append("text")
         .attr("x", 250)
-        .attr("y", 40)
+        .attr("y", 35)
         .attr("class","chartTitle")
         .text(chartTitles[expressed])
 
@@ -303,42 +405,38 @@ function setChart(csvData, worldCountries, colorScale){
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
 
-//DO SOMETHING W
-//Goal: go through data to identify data !=NaN and return that data
-//steps
-//1. create new function to output the desired data 2. access all of the data,
-//2. access the properties of the data
-//3. write if statement to get desired data
-//4. return data
-//5. incoroporting into creation of bar chart
-  function newData(worldCountries){
-    //console.log(worldCountries);
-    for (var i=0; i<worldCountries.length; i++){
-      //console.log(worldCountries[i][expressed]);
-      var val=parseFloat(worldCountries[i][expressed]);
-    //  console.log(val);
-    };
-  };
-  var data2 = newData(csvData);
+//IT RETURNS THE CORRECT ARRAY, I JUST CAN'T MAKE IT GO INTO OTHER FUNCITONS
+//   function newData(worldCountries, csvData){
+//     newDataArray=[];
+//      for (var i=0; i<csvData.length; i++){
+//        newDataArray.push(parseFloat(csvData[i][expressed]));
+//     }
+//     var filteredArray=newDataArray.filter(Boolean);
+//     return filteredArray;
+//
+//   };
+// newData(worldCountries, csvData)
+//  var data2 = newData(worldCountries, csvData);
 
-//updateChart(bars, csvData.length, colorScale);
 
 };
 
-function changeAttribute(attribute, csvData){
-  expressed=attribute;
 
+function changeAttribute(attribute, csvData){
+
+  expressed=attribute;
+  //dynamic y scaling, restated in both functions
   var yScale = d3.scale.linear()
               //change scale values dynamically with max value of each variable
               .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
               //output this between 0 and chartInnerHeight
               .range([0, chartInnerHeight]);
-
-
-
+  //upon changin attribute, make color scale also change
   var colorScale=makeColorScale(csvData);
-
+  //return countries colored to colorScale
   var selectCountries=d3.selectAll(".selectCountries")
+      .transition()
+      .duration(600)
       .style("fill", function(d){
         return choropleth(d.properties, colorScale)
       });
@@ -348,14 +446,21 @@ function changeAttribute(attribute, csvData){
         //list largest values first for easier of reading
       return b[expressed]-a[expressed];
     })
-  //determine position on x axis by number of elements, incl leftPadding
+      //cool transition effects
+      .transition()
+      .delay(function(d,i){
+        return i*8
+      })
+      .duration(90)
+      //determine position on x axis by number of elements, incl leftPadding
       .attr("x", function(d,i){
         return i*(chartInnerWidth/csvData.length) + leftPadding;
     })
-    //height by yscale of each value, within chartInnerHeight
+      //height by yscale of each value, within chartInnerHeight
       .attr("height", function(d){
         return chartInnerHeight-yScale(parseFloat(d[expressed]));
     })
+      //y positioning
       .attr("y", function(d){
         return yScale(parseFloat(d[expressed]))+topBottomPadding;
 
@@ -364,56 +469,9 @@ function changeAttribute(attribute, csvData){
       .style("fill", function(d){
         return choropleth(d, colorScale);
     });
-
+    //change chart title dynamically
     var chartTitle=d3.select(".chartTitle")
         .text((chartTitles[expressed]))
-
-  //  updateChart(bars, csvData.length, colorScale);
 };
-
-function updateChart(bars, n, colorScale, csvData){
-  //  var colorScale=makeColorScale(csvData);
-
-
-  bars.attr("x", function(d,i){
-        return i*(chartInnerWidth/n) + leftPadding;
-    })
-    //height by yscale of each value, within chartInnerHeight
-    .attr("height", function(d,i){
-      var yScale = d3.scale.linear()
-                  //change scale values dynamically with max value of each variable
-                  .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
-                  //output this between 0 and chartInnerHeight
-                  .range([0, chartInnerHeight]);
-      return chartInnerHeight-yScale(parseFloat(d[expressed]));
-    })
-    //make bars 'grow' from bottom
-    .attr("y", function(d,i){
-      var yScale = d3.scale.linear()
-                  //change scale values dynamically with max value of each variable
-                  .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.02, 0])
-                  //output this between 0 and chartInnerHeight
-                  .range([0, chartInnerHeight]);
-      return yScale(parseFloat(d[expressed]))+topBottomPadding;
-
-    })
-    //color by colorScale
-    .style("fill", function(d){
-      return choropleth(d, colorScale);
-    });
-
-  var chartTitle=d3.select(".chartTitle")
-          .text(chartTitles[expressed]);
-
-  var yScale = d3.scale.linear()
-              //change scale values dynamically with max value of each variable
-              .domain([d3.max(csvData,function(d){ return parseFloat(d[expressed])})*1.01, 0])
-              //output this between 0 and chartInnerHeight
-              .range([0, chartInnerHeight]);
-
-
-};
-
-
 
 })();
